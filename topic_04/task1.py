@@ -16,31 +16,44 @@ def divide(a, b):
 
 def get_user_input():
     while True:
+        a_str = input("Введіть перше число: ")
         try:
-            a = float(input("Введіть перше число: "))
-            operation = input("Введіть операцію (+, -, *, /) або 'q' для виходу: ")
-            if operation.lower() == 'q':
-                return None, None, None 
-            if operation not in ['+', '-', '*', '/']:
-                raise ValueError("Невідома операція!")
-            b = float(input("Введіть друге число: "))
-            return operation, a, b
+            a = float(a_str)
         except ValueError:
             print("Будь ласка, введіть числа, а не текст.")
+            continue
+        
+        operation = input("Введіть операцію (+, -, *, /) або 'q' для виходу: ")
+        if operation.lower() == 'q':
+            return None, None, None 
+        if operation not in ['+', '-', '*', '/']:
+            print("Невідома операція!")
+            continue
+        
+        b_str = input("Введіть друге число: ")
+        try:
+            b = float(b_str)
+        except ValueError:
+            print("Будь ласка, введіть числа, а не текст.")
+            continue
+        
+        return operation, a, b
 
-while True:
-    operation, a, b = get_user_input()
-    if operation is None:
-        print("Вихід з програми.")
-        break
-    if operation == '+':
-        result = add(a, b)
-    elif operation == '-':
-        result = subtract(a, b)
-    elif operation == '/':
-        result = divide(a, b)
-        if result is None:
-            continue 
-    elif operation == '*':
-        result = multiply(a, b)
-    print(f"Результат: {result}")
+def main():
+    while True:
+        operation, a, b = get_user_input()
+        if operation is None:
+            print("Вихід з програми.")
+            break
+        if operation == '+':
+            result = add(a, b)
+        elif operation == '-':
+            result = subtract(a, b)
+        elif operation == '/':
+            result = divide(a, b)
+            if result is None:
+                continue 
+        elif operation == '*':
+            result = multiply(a, b)
+        print(f"Результат: {result}")
+    
